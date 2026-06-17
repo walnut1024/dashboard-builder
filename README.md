@@ -22,11 +22,31 @@ Install with the open skills CLI:
 npx skills add walnut1024/dashboard-builder --skill dashboard-builder
 ```
 
+Install globally for Claude Code:
+
+```bash
+npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a claude-code -y
+```
+
+Install globally for OpenCode:
+
+```bash
+npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a opencode -y
+```
+
 Install globally for Codex:
 
 ```bash
 npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a codex -y
 ```
+
+Install globally for all supported agents:
+
+```bash
+npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a '*' -y
+```
+
+Note: the `skills` CLI agent name for Codex/Codex CLI is `codex`, not `codex-cli`.
 
 Use directly from GitHub:
 
