@@ -1,0 +1,65 @@
+{
+  "skill_name": "dashboard-builder",
+  "evals": [
+    {
+      "id": 1,
+      "name": "sparse-prototype-confirmation",
+      "prompt": "Use $dashboard-builder. 帮我做一个医院监管大屏，要科技感。",
+      "expected_output": "The agent should not implement immediately. It should confirm usage scenario and delivery mode first, default to prototype, and cover information architecture, layout, visual theme, interactions, technical constraints, and acceptance criteria. After confirmation it should write a layout-first DASHBOARD.md before code.",
+      "files": [],
+      "assertions": [
+        "Does not create dashboard code before confirmation.",
+        "Mentions prototype as the default delivery mode.",
+        "Uses the Confirmed / Assumptions / Proposal / Question confirmation format.",
+        "Covers CDN or environment constraints before implementation.",
+        "States that DASHBOARD.md must be written and confirmed before implementation."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "detailed-prototype-html",
+      "prompt": "Use $dashboard-builder. Create a 1920x1080 prototype data screen for a city emergency command center. Show total incidents, active dispatches, response SLA, high-risk areas, incident trend, severity distribution, top districts, and latest alerts. Use a dark command-center style. Public internet and CDN are allowed. Save a single HTML file.",
+      "expected_output": "The agent should confirm the workflow, write DASHBOARD.md with minimal YAML frontmatter and an ASCII layout diagram, wait for confirmation, then generate a standalone HTML dashboard using Tailwind CDN and ECharts CDN, preferably adapted from assets/template.html. The output should pass inspect-dashboard.mjs at 1920x1080.",
+      "files": [],
+      "assertions": [
+        "Generates DASHBOARD.md before dashboard code.",
+        "DASHBOARD.md frontmatter contains only name, resolution, and description.",
+        "DASHBOARD.md Layout section contains an ASCII structure diagram.",
+        "Generates a single HTML dashboard after DASHBOARD.md confirmation.",
+        "Uses Tailwind CDN and ECharts CDN.",
+        "Includes realistic mock data for the requested metrics.",
+        "Runs or instructs running scripts/inspect-dashboard.mjs at 1920x1080."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "hybrid-react-adapter",
+      "prompt": "Use $dashboard-builder. Build a dashboard for a logistics control room. The backend is not ready, but later it will expose /api/dashboard/summary and /api/dashboard/events. For now use mock data, but structure it so we can swap in the real API. Use React, TypeScript, and ECharts.",
+      "expected_output": "The agent should select hybrid delivery mode, confirm the workflow, write DASHBOARD.md with layout-first sections and an API-shaped data model, then implement React + TypeScript + ECharts with mock data behind an adapter shaped like the future API, and explain the swap path to production.",
+      "files": [],
+      "assertions": [
+        "Selects or confirms hybrid delivery mode.",
+        "Writes DASHBOARD.md before implementation.",
+        "DASHBOARD.md describes layout regions and section-level chart/component choices.",
+        "Separates mock data from presentational chart components.",
+        "Defines an adapter/service boundary for future API replacement.",
+        "Includes browser or scripted dashboard inspection when runnable."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "production-api-dashboard",
+      "prompt": "Use $dashboard-builder. Add a production dashboard that calls GET /api/ops/overview, GET /api/ops/trend?range=24h, and GET /api/ops/alerts. It needs loading, empty, error, refresh, and stale-data states. The screen is used by on-call operators on a 1920x1080 wall display.",
+      "expected_output": "The agent should confirm production delivery mode, API contract details, layout, visual theme, interactions, constraints, and acceptance criteria, then write and confirm DASHBOARD.md before implementation. The implementation should use a service/adapter layer and include all required runtime states.",
+      "files": [],
+      "assertions": [
+        "Confirms production delivery mode.",
+        "Writes DASHBOARD.md before implementation.",
+        "Asks for or documents API contract assumptions.",
+        "Implements loading, empty, error, refresh, and stale-data states.",
+        "Keeps API calls outside presentational chart components.",
+        "Uses dashboard quality inspection when the page can run."
+      ]
+    }
+  ]
+}

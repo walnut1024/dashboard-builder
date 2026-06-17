@@ -1,0 +1,5 @@
+.DS_Store
+node_modules/
+*.log
+dashboard-builder/evals/*-inspection.json
+dashboard-builder/evals/*-inspection.png
