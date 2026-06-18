@@ -28,9 +28,11 @@ Follow the prompts to choose:
 - install scope: global or project
 - install mode: symlink or copy
 
-For Claude Code project installs, choose `Claude Code` as the target agent and `project` as the install scope. The installer creates `./.claude/skills/dashboard-builder` even when the project does not already have a `.claude` directory.
+For Claude Code project installs, choose `Claude Code` as the target agent and `project` as the install scope.
 
 If the command runs inside an agent-managed terminal, the installer may auto-detect that agent and skip the picker. In that case it can install to `./.agents/skills/dashboard-builder` instead of `./.claude/skills/dashboard-builder`. Re-run the command from a normal terminal if you want the interactive agent picker, then select `Claude Code`.
+
+If you choose `Symlink` for a Claude Code project install, the project must already have a `.claude` directory. If it does not, create `.claude` first or choose `Copy` in the installer.
 
 After a Claude Code project install, verify:
 
