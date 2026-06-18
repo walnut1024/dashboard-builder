@@ -16,11 +16,19 @@ It guides the agent through:
 
 ## Install
 
-Install with the open skills CLI:
+Recommended interactive install:
 
 ```bash
 npx skills add walnut1024/dashboard-builder --skill dashboard-builder
 ```
+
+Follow the prompts to choose:
+
+- target agent, such as Claude Code, OpenCode, Codex, or all supported agents
+- install scope: global or project
+- install mode: symlink by default, or copy files with `--copy`
+
+In agent-managed terminals, the CLI may auto-detect the current agent and run non-interactively. Use the explicit commands below when you want deterministic installs.
 
 Install globally for Claude Code:
 
@@ -47,6 +55,12 @@ npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a '*' 
 ```
 
 Note: the `skills` CLI agent name for Codex/Codex CLI is `codex`, not `codex-cli`.
+
+Copy files instead of symlinking:
+
+```bash
+npx skills add walnut1024/dashboard-builder --skill dashboard-builder --copy
+```
 
 Use directly from GitHub:
 
