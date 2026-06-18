@@ -30,6 +30,14 @@ Follow the prompts to choose:
 
 In agent-managed terminals, the CLI may auto-detect the current agent and run non-interactively. Use the explicit commands below when you want deterministic installs.
 
+Project install for Claude Code:
+
+```bash
+npx skills add walnut1024/dashboard-builder --skill dashboard-builder -a claude-code
+```
+
+If you choose project scope, this creates `./.claude/skills/dashboard-builder` even when the project does not already have a `.claude` directory.
+
 Install globally for Claude Code:
 
 ```bash
