@@ -16,7 +16,7 @@ It guides the agent through:
 
 ## Install
 
-Run the installer:
+Run the installer from a regular terminal:
 
 ```bash
 npx skills add walnut1024/dashboard-builder --skill dashboard-builder
@@ -29,6 +29,14 @@ Follow the prompts to choose:
 - install mode: symlink or copy
 
 For Claude Code project installs, choose `Claude Code` as the target agent and `project` as the install scope. The installer creates `./.claude/skills/dashboard-builder` even when the project does not already have a `.claude` directory.
+
+If the command runs inside an agent-managed terminal, the installer may auto-detect that agent and skip the picker. In that case it can install to `./.agents/skills/dashboard-builder` instead of `./.claude/skills/dashboard-builder`. Re-run the command from a normal terminal if you want the interactive agent picker, then select `Claude Code`.
+
+After a Claude Code project install, verify:
+
+```text
+./.claude/skills/dashboard-builder/SKILL.md
+```
 
 Use directly from GitHub:
 
