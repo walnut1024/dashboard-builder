@@ -16,7 +16,7 @@ It guides the agent through:
 
 ## Install
 
-Recommended interactive install:
+Run the installer:
 
 ```bash
 npx skills add walnut1024/dashboard-builder --skill dashboard-builder
@@ -26,49 +26,9 @@ Follow the prompts to choose:
 
 - target agent, such as Claude Code, OpenCode, Codex, or all supported agents
 - install scope: global or project
-- install mode: symlink by default, or copy files with `--copy`
+- install mode: symlink or copy
 
-In agent-managed terminals, the CLI may auto-detect the current agent and run non-interactively. Use the explicit commands below when you want deterministic installs.
-
-Project install for Claude Code:
-
-```bash
-npx skills add walnut1024/dashboard-builder --skill dashboard-builder -a claude-code
-```
-
-If you choose project scope, this creates `./.claude/skills/dashboard-builder` even when the project does not already have a `.claude` directory.
-
-Install globally for Claude Code:
-
-```bash
-npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a claude-code -y
-```
-
-Install globally for OpenCode:
-
-```bash
-npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a opencode -y
-```
-
-Install globally for Codex:
-
-```bash
-npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a codex -y
-```
-
-Install globally for all supported agents:
-
-```bash
-npx skills add walnut1024/dashboard-builder --skill dashboard-builder -g -a '*' -y
-```
-
-Note: the `skills` CLI agent name for Codex/Codex CLI is `codex`, not `codex-cli`.
-
-Copy files instead of symlinking:
-
-```bash
-npx skills add walnut1024/dashboard-builder --skill dashboard-builder --copy
-```
+For Claude Code project installs, choose `Claude Code` as the target agent and `project` as the install scope. The installer creates `./.claude/skills/dashboard-builder` even when the project does not already have a `.claude` directory.
 
 Use directly from GitHub:
 
