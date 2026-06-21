@@ -34,6 +34,15 @@ Before coding substantial `hybrid`, `production`, `editorial`, or `immersive` da
 - Performance degradation plan.
 - Static or reduced-motion fallback for advanced visuals.
 
+## Fidelity And Asset Handling
+
+- Preserve the confirmed visual requirement. Automated inspection failures are defects to diagnose, not permission to downgrade the primary dashboard design.
+- If the user asks for a real geographic map, topology, floor plan, image substrate, 3D model, or other domain-specific asset, use the real asset or ask the user for it.
+- When a runtime network asset is needed, prefer downloading or copying it into the project and referencing it locally when licensing and project policy allow. For ECharts maps, register the local GeoJSON with `echarts.registerMap` before rendering.
+- Do not replace a confirmed real map with a DOM/SVG schematic, grid, abstract matrix, or placeholder just to pass nonblank canvas checks.
+- Use lower-fidelity fallbacks only as conditional fallback states, reduced-motion/static alternatives, or explicitly user-approved temporary gaps. Label them as fallback or unresolved, not as the primary fulfilled requirement.
+- If a high-fidelity visual fails inspection because of an asset, projection, container, renderer, CORS, or timing issue, fix that root cause first. If it cannot be fixed in the current environment, report the failed check and the exact blocker instead of silently lowering fidelity.
+
 ## Chart Implementation
 
 - Implement major charts from the confirmed `Chart Map` in `DASHBOARD.md`.

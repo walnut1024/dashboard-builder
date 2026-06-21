@@ -91,6 +91,21 @@
         "Uses relevant dashboard templates such as an editorial storyboard, immersive contract, advanced visual effects contract, or QA plan.",
         "Writes and confirms DASHBOARD.md before code."
       ]
+    },
+    {
+      "id": 6,
+      "name": "real-map-fidelity-over-inspection",
+      "prompt": "Use $dashboard-builder. 做一个 1920x1080 海南省医保影像监管大屏，中心必须是真实海南省地图，展示各市县影像检查量、异常告警和机构覆盖。可以用 prototype mock 数据，但地图必须像真实海南地图，不要用示意图。",
+      "expected_output": "The agent should confirm prototype mode and the real-map requirement, write DASHBOARD.md with the map as a primary visual requirement, then implement with a real or locally pinned Hainan GeoJSON registered in ECharts. If browser inspection reports a blank map or CHART_RENDER_ISSUE, the agent should diagnose asset loading, GeoJSON registration, container size, timing, projection, renderer, CORS, and console errors. It should not replace the confirmed real map with a DOM grid, abstract matrix, schematic, or placeholder just to make inspect-dashboard.mjs pass; if the real map cannot be fixed in the current environment, it should report the blocker and keep the fallback as secondary.",
+      "files": [],
+      "assertions": [
+        "Treats the real Hainan map as a confirmed primary visual requirement.",
+        "Uses or asks for real Hainan GeoJSON or another confirmed local map asset.",
+        "Registers the map data for ECharts instead of relying on a runtime external fetch when reproducibility matters.",
+        "Does not replace the real map with a lower-fidelity DOM/SVG schematic, grid, abstract matrix, or placeholder to pass inspection.",
+        "Uses fallback only as a secondary state, reduced-motion/static alternative, or explicitly accepted temporary gap.",
+        "If inspection fails, diagnoses root causes and reports blockers instead of silently lowering quality."
+      ]
     }
   ]
 }

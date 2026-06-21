@@ -2,7 +2,7 @@
 name: dashboard-builder
 description: Build, design, implement, and verify visual data dashboards and large-screen data displays. Use this skill whenever the user asks for a data cockpit, operations screen, command center, monitoring screen, exhibition or presentation data screen, 数据大屏, 可视化大屏, 监控大屏, 指挥中心, 驾驶舱, or a frontend dashboard that turns metrics, API data, or mock data into a visual screen. Use it for prototype single-file HTML dashboards, hybrid mock-backed production-shaped dashboards, production dashboards connected to backend APIs, and advanced visual dashboards with maps, scenes, WebGL, 3D, particles, or scrollytelling when those effects carry meaning; do not use it for editing BI-platform dashboards directly.
 metadata:
-  version: "0.0.2"
+  version: "0.0.3"
 ---
 
 # Dashboard Builder
@@ -31,6 +31,7 @@ Guide a dashboard from rough intent to a verified runnable artifact. Follow the 
 - Prefer existing project conventions over the defaults when working in a real app.
 - Do not present mock, sample, scratch, or fallback data as production data.
 - Keep dashboards legible, aligned, and stable at the target resolution. Operational dashboards should be dense and scan-first; presentation, editorial, and immersive dashboards may be more visual but must still preserve the evidence.
+- Quality and confirmed requirements outrank automated inspection. Do not replace a confirmed high-fidelity map, scene, chart, or data substrate with a lower-fidelity placeholder just to pass `inspect-dashboard.mjs`; fix the asset, renderer, container, data, or environment issue, or report the failing check as a blocker.
 - Allow WebGL, 3D, particles, scrollytelling, and advanced motion only when they carry data, state, orientation, or narrative meaning and have static or reduced-motion fallback.
 - After generating a runnable dashboard, verify with `scripts/inspect-dashboard.mjs` when the environment can run a browser.
 

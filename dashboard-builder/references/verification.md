@@ -2,6 +2,16 @@
 
 Use this file before claiming the dashboard is ready.
 
+## Quality Precedence
+
+Automated checks protect dashboard quality; they do not define the product. A passing inspection is not acceptable if it was achieved by lowering a confirmed requirement.
+
+- Do not replace a confirmed real map, topology, advanced scene, image substrate, or domain-specific visual with a lower-fidelity placeholder just to pass `inspect-dashboard.mjs`.
+- When `inspect-dashboard.mjs` reports blank or broken chart/scene output, first diagnose asset loading, data registration, container size, timing, projection, renderer, CORS, and console errors.
+- For real maps, prefer local confirmed GeoJSON or another confirmed local map asset over runtime CDN/network fetches when reproducibility matters.
+- Keep fallbacks secondary and conditional. A fallback may support offline, reduced-motion, loading, error, or unsupported-renderer states, but it must not replace the primary implementation unless the user explicitly accepts the downgrade.
+- If the root cause cannot be fixed, report the blocker, failed check, screenshot/report path, and next required asset or environment change.
+
 ## Browser Checks
 
 At minimum check:

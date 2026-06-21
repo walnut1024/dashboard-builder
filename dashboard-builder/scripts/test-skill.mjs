@@ -99,6 +99,30 @@ check("react template includes tailwind pipeline", () => {
   assert(read("assets/react-echarts-template/src/styles.css").includes("@tailwind"), "React template CSS must enter the Tailwind pipeline.");
 });
 
+check("quality cannot be downgraded to pass inspection", () => {
+  const skill = read("SKILL.md");
+  const implementation = read("references/implementation.md");
+  const verification = read("references/verification.md");
+
+  assert(skill.includes("Quality and confirmed requirements outrank automated inspection"), "SKILL.md must state that quality outranks automated inspection.");
+  assert(
+    implementation.includes("Do not replace a confirmed real map with a DOM/SVG schematic"),
+    "implementation.md must forbid replacing real maps with lower-fidelity schematics to pass checks.",
+  );
+  assert(
+    implementation.includes("echarts.registerMap"),
+    "implementation.md must direct ECharts map implementations to register local GeoJSON.",
+  );
+  assert(
+    verification.includes("A passing inspection is not acceptable if it was achieved by lowering a confirmed requirement."),
+    "verification.md must reject passing checks by lowering confirmed requirements.",
+  );
+  assert(
+    verification.includes("asset loading, data registration, container size, timing, projection, renderer, CORS, and console errors"),
+    "verification.md must list root causes to diagnose before downgrading visuals.",
+  );
+});
+
 check("stale or vendor-bound wording is absent", () => {
   const files = [
     "SKILL.md",
