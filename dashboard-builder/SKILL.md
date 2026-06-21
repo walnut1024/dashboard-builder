@@ -1,6 +1,8 @@
 ---
 name: dashboard-builder
 description: Build, design, implement, and verify visual data dashboards and large-screen data displays. Use this skill whenever the user asks for a data cockpit, operations screen, command center, monitoring screen, exhibition or presentation data screen, 数据大屏, 可视化大屏, 监控大屏, 指挥中心, 驾驶舱, or a frontend dashboard that turns metrics, API data, or mock data into a visual screen. Use it for prototype single-file HTML dashboards, hybrid mock-backed production-shaped dashboards, production dashboards connected to backend APIs, and advanced visual dashboards with maps, scenes, WebGL, 3D, particles, or scrollytelling when those effects carry meaning; do not use it for editing BI-platform dashboards directly.
+metadata:
+  version: "0.0.2"
 ---
 
 # Dashboard Builder
