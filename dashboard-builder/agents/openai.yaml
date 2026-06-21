@@ -1,4 +1,4 @@
 interface:
   display_name: "Dashboard Builder"
-  short_description: "Guide polished data-screen builds"
-  default_prompt: "Use $dashboard-builder to build an interactive operations dashboard from my requirements."
+  short_description: "Design and build data dashboards"
+  default_prompt: "Use $dashboard-builder to design and build a visual dashboard from my requirements."

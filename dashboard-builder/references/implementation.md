@@ -20,18 +20,52 @@ If CDN or internet is not allowed, ask before switching to local assets or inlin
 
 For simple prototype charts, ECharts CDN is acceptable. For very simple visuals, CSS/SVG/Canvas can be enough.
 
+For presentation, editorial, or immersive prototypes, still prefer a single HTML file unless the requested scene requires a project stack. Use CDN libraries only when allowed.
+
+## Lightweight Technical Design
+
+Before coding substantial `hybrid`, `production`, `editorial`, or `immersive` dashboards, document:
+
+- Expected chart or scene instance count.
+- Target container sizes and responsive fallback.
+- Data volume, mark count, scene object count, or update cadence.
+- Interaction states: filters, hover/tap, selection, scene step, autoplay, zoom, drilldown, refresh.
+- Renderer choice and why it fits the dashboard.
+- Performance degradation plan.
+- Static or reduced-motion fallback for advanced visuals.
+
+## Chart Implementation
+
+- Implement major charts from the confirmed `Chart Map` in `DASHBOARD.md`.
+- Keep ECharts options aligned with the selected chart family, fields, units, palette policy, and non-color distinction plan.
+- Keep chart-ready view models separate from raw mock/API responses.
+- Leave enough container space for labels, legends, tooltips, negative values, and direct value labels at the target resolution.
+- If the data is too sparse for the selected chart, switch to the documented fallback rather than forcing the original chart type.
+
+## Renderer Selection
+
+- Use ECharts for standard dashboard charts, KPI-adjacent trends, maps when ECharts maps are sufficient, and fast prototype work.
+- Use SVG or DOM for simple custom diagrams, direct labels, annotations, and crisp vector overlays.
+- Use Canvas2D for dense flat marks, custom hit testing, or many repeated microcharts when SVG/DOM is too heavy.
+- Use Three.js, WebGL, deck.gl, PixiJS, or similar renderers only when scale, 3D structure, particles, flow, topology, shader effects, or spatial interaction materially improve the dashboard.
+- Use static HTML/CSS/SVG fallback when advanced renderers are not allowed or cannot be verified.
+
+Advanced effects must follow the `Advanced Visual Contract` in `DASHBOARD.md`; do not add ambient effects that have no data, state, orientation, or narrative role.
+
 ## Hybrid
 
 Default:
 
 - React + TypeScript + ECharts for new projects.
+- Confirmed `DASHBOARD_API.yaml` before coding.
 - Mock data behind a data adapter shaped like the future API.
 - View models separated from raw mock/API response.
+- Start from `assets/react-echarts-template/` only when the target workspace has no suitable frontend stack.
 
 Deliver:
 
 - Components or page.
-- Mock API contract.
+- Mock data that conforms to `DASHBOARD_API.yaml`.
 - Adapter/service boundary.
 - Clear note on how to replace mock data with real API.
 
@@ -40,8 +74,12 @@ Deliver:
 Default:
 
 - React + TypeScript + ECharts for new projects.
+- Confirmed `DASHBOARD_API.yaml` before coding.
 - Real API calls in service/adapter layer.
 - Loading, empty, error, stale, refresh, and partial-failure states.
+- Delayed, offline, reconnecting, and last-known-good states when remote or live data requires them.
+- No mock, sample, scratch, or fallback data presented as production data.
+- Start from `assets/react-echarts-template/` only when creating a new standalone React dashboard.
 
 Confirm:
 

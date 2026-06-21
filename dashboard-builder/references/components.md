@@ -34,6 +34,7 @@ Include:
 - Scope or filter context.
 - Last updated or refresh state.
 - Optional action icon/button.
+- Source, caveat, or scene state when it affects interpretation.
 
 ## Alert/Event List
 
@@ -83,7 +84,7 @@ Include:
 
 ## Metric Trend Panel
 
-Use an ECharts line/area chart with:
+Use the chart variant selected in `Chart Map`. Include:
 
 - Time axis.
 - Unit.
@@ -92,7 +93,7 @@ Use an ECharts line/area chart with:
 
 ## Distribution Panel
 
-Use ring, stacked bar, or horizontal bar. Include total and legend.
+Use the chart variant selected in `Chart Map`. Include total, denominator, and legend or direct labels when needed.
 
 ## Data Table / Ticker Row
 
@@ -100,7 +101,7 @@ Use for exact lookup or event feeds. Include fixed columns and avoid horizontal 
 
 ## Filter Bar
 
-Use only when interaction is required. Keep filters compact and visible.
+Use only when interaction is required. Keep filters compact, visible, and near the panels they affect.
 
 ## Refresh / Stale Indicator
 
@@ -110,3 +111,28 @@ Production dashboards should show:
 - Refreshing.
 - Refresh failed.
 - Data stale.
+- Delayed, partial, offline, or reconnecting when those states affect trust.
+
+## Scene / Story Controls
+
+Use for `presentation`, `editorial`, or `immersive` dashboards.
+
+Include:
+
+- Current scene or step.
+- Previous/next or autoplay control.
+- Pause state.
+- Reduced-motion or static fallback when motion carries meaning.
+- Source/caveat visible in exported or paused states.
+
+## Immersive Scene
+
+Use only when the scene carries orientation or meaning.
+
+Include:
+
+- Scene title or mode.
+- Data-bound labels or overlays.
+- Legend or key near the scene.
+- Fallback view.
+- Render-ready and error state.

@@ -5,42 +5,53 @@
       "id": 1,
       "name": "sparse-prototype-confirmation",
       "prompt": "Use $dashboard-builder. 帮我做一个医院监管大屏，要科技感。",
-      "expected_output": "The agent should not implement immediately. It should confirm usage scenario and delivery mode first, default to prototype, and cover information architecture, layout, visual theme, interactions, technical constraints, and acceptance criteria. After confirmation it should write a layout-first DASHBOARD.md before code.",
+      "expected_output": "The agent should not implement immediately. It should confirm usage scenario and delivery mode first, default to prototype, and cover information architecture, layout, visual theme, interactions, technical constraints, and acceptance criteria. After confirmation it should write a layout-first DASHBOARD.md at the agreed path before code. The flow should remain neutral to any LLM provider, model, or agent host.",
       "files": [],
       "assertions": [
         "Does not create dashboard code before confirmation.",
         "Mentions prototype as the default delivery mode.",
+        "Asks for or proposes the dashboard type, such as operational, analytical, presentation, editorial, or immersive.",
         "Uses the Confirmed / Assumptions / Proposal / Question confirmation format.",
+        "Asks for or proposes the primary audience question and metric roles.",
         "Covers CDN or environment constraints before implementation.",
-        "States that DASHBOARD.md must be written and confirmed before implementation."
+        "States that DASHBOARD.md must be written and confirmed before implementation.",
+        "Does not require a specific LLM provider, model, or agent host."
       ]
     },
     {
       "id": 2,
       "name": "detailed-prototype-html",
       "prompt": "Use $dashboard-builder. Create a 1920x1080 prototype data screen for a city emergency command center. Show total incidents, active dispatches, response SLA, high-risk areas, incident trend, severity distribution, top districts, and latest alerts. Use a dark command-center style. Public internet and CDN are allowed. Save a single HTML file.",
-      "expected_output": "The agent should confirm the workflow, write DASHBOARD.md with minimal YAML frontmatter and an ASCII layout diagram, wait for confirmation, then generate a standalone HTML dashboard using Tailwind CDN and ECharts CDN, preferably adapted from assets/template.html. The output should pass inspect-dashboard.mjs at 1920x1080.",
+      "expected_output": "The agent should confirm the workflow, write DASHBOARD.md with minimal YAML frontmatter and an ASCII layout diagram at the agreed path, wait for confirmation, then generate a standalone HTML dashboard using Tailwind CDN and ECharts CDN, preferably adapted from assets/template.html. The output should pass inspect-dashboard.mjs at 1920x1080.",
       "files": [],
       "assertions": [
         "Generates DASHBOARD.md before dashboard code.",
         "DASHBOARD.md frontmatter contains only name, resolution, and description.",
         "DASHBOARD.md Layout section contains an ASCII structure diagram.",
+        "DASHBOARD.md includes a Reading Path or equivalent first-scan sequence.",
+        "DASHBOARD.md includes a Chart Map for major visuals.",
         "Generates a single HTML dashboard after DASHBOARD.md confirmation.",
         "Uses Tailwind CDN and ECharts CDN.",
         "Includes realistic mock data for the requested metrics.",
-        "Runs or instructs running scripts/inspect-dashboard.mjs at 1920x1080."
+        "Keeps the default view focused on the emergency command center's primary monitoring question.",
+        "Runs or instructs running the bundled inspect-dashboard.mjs script at 1920x1080."
       ]
     },
     {
       "id": 3,
       "name": "hybrid-react-adapter",
       "prompt": "Use $dashboard-builder. Build a dashboard for a logistics control room. The backend is not ready, but later it will expose /api/dashboard/summary and /api/dashboard/events. For now use mock data, but structure it so we can swap in the real API. Use React, TypeScript, and ECharts.",
-      "expected_output": "The agent should select hybrid delivery mode, confirm the workflow, write DASHBOARD.md with layout-first sections and an API-shaped data model, then implement React + TypeScript + ECharts with mock data behind an adapter shaped like the future API, and explain the swap path to production.",
+      "expected_output": "The agent should select hybrid delivery mode, confirm the workflow, draft and confirm DASHBOARD_API.yaml as an OpenAPI Specification for the future API, run the lightweight API validator when available, write DASHBOARD.md with layout-first sections and a Chart Map referencing the API contract, reconcile DASHBOARD_API.yaml against the confirmed sections, then implement React + TypeScript + ECharts with mock data behind an adapter shaped like the confirmed contract, using the existing project stack or assets/react-echarts-template when no stack exists, and explain the swap path to production.",
       "files": [],
       "assertions": [
         "Selects or confirms hybrid delivery mode.",
+        "Creates or requests confirmation for DASHBOARD_API.yaml before implementation.",
+        "Runs or references validate-dashboard-api.mjs for the first-pass or final API contract.",
         "Writes DASHBOARD.md before implementation.",
         "DASHBOARD.md describes layout regions and section-level chart/component choices.",
+        "DASHBOARD.md identifies metric roles, units, refresh behavior, and API contract status.",
+        "DASHBOARD.md Chart Map documents data sufficiency or fallback choices for major charts.",
+        "Uses dashboard-specific templates or checklists when they help stabilize the brief, design contract, API contract, or QA plan.",
         "Separates mock data from presentational chart components.",
         "Defines an adapter/service boundary for future API replacement.",
         "Includes browser or scripted dashboard inspection when runnable."
@@ -50,15 +61,35 @@
       "id": 4,
       "name": "production-api-dashboard",
       "prompt": "Use $dashboard-builder. Add a production dashboard that calls GET /api/ops/overview, GET /api/ops/trend?range=24h, and GET /api/ops/alerts. It needs loading, empty, error, refresh, and stale-data states. The screen is used by on-call operators on a 1920x1080 wall display.",
-      "expected_output": "The agent should confirm production delivery mode, API contract details, layout, visual theme, interactions, constraints, and acceptance criteria, then write and confirm DASHBOARD.md before implementation. The implementation should use a service/adapter layer and include all required runtime states.",
+      "expected_output": "The agent should confirm production delivery mode, collect or accept OAS-compliant API details, create a first-pass DASHBOARD_API.yaml, run the lightweight API validator when available, then confirm layout, visual theme, interactions, constraints, and acceptance criteria before writing DASHBOARD.md. Before implementation it should reconcile and confirm the final DASHBOARD_API.yaml against API-backed sections. The implementation should use a service/adapter layer and include all required runtime states.",
       "files": [],
       "assertions": [
         "Confirms production delivery mode.",
         "Writes DASHBOARD.md before implementation.",
-        "Asks for or documents API contract assumptions.",
-        "Implements loading, empty, error, refresh, and stale-data states.",
+        "Creates or confirms DASHBOARD_API.yaml as the OpenAPI Specification contract.",
+        "Validates DASHBOARD_API.yaml structure before implementing API calls.",
+        "Does not present mock, sample, or fallback data as production data.",
+        "Implements loading, empty, error, refresh, stale-data, and partial or reconnect states when relevant.",
+        "Charts use compatible fields, sufficient data, and non-color encoding where distinction matters.",
         "Keeps API calls outside presentational chart components.",
         "Uses dashboard quality inspection when the page can run."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "immersive-exhibition-dashboard",
+      "prompt": "Use $dashboard-builder. 做一个展厅用的年度成果展示大屏，1920x1080，需要有数据故事线、自动播放场景切换、地图态势、粒子流向或 3D 效果都可以。先做 prototype，数据可以 mock，但不要一上来写代码。",
+      "expected_output": "The agent should classify the dashboard as presentation, editorial, or immersive instead of forcing an operational layout. It should still default delivery mode to prototype, confirm whether advanced effects, WebGL/3D/particles, auto-play, reduced motion, and CDN are allowed, then write DASHBOARD.md with an ASCII layout, Reading Path or storyboard, Chart Map for major charts, and an Advanced Visual Contract that states what each effect means and its static or reduced-motion fallback before generating code.",
+      "files": [],
+      "assertions": [
+        "Does not implement before confirmation.",
+        "Selects or asks to confirm presentation, editorial, or immersive dashboard type.",
+        "Keeps prototype as the default delivery mode unless the user changes it.",
+        "Allows WebGL, 3D, particles, scrollytelling, stepper, or scene transitions when they serve the exhibition story.",
+        "Requires every advanced visual effect to have a data, state, orientation, or narrative meaning.",
+        "Requires static or reduced-motion fallback for advanced effects.",
+        "Uses relevant dashboard templates such as an editorial storyboard, immersive contract, advanced visual effects contract, or QA plan.",
+        "Writes and confirms DASHBOARD.md before code."
       ]
     }
   ]

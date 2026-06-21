@@ -1,6 +1,6 @@
 # Layouts
 
-Use this file during workflow step 3 and when writing the `DASHBOARD.md` Layout section.
+Use this file during Phase 4: Screen Design and when writing the `DASHBOARD.md` Layout section.
 
 Every selected layout in `DASHBOARD.md` must include an ASCII structure diagram.
 
@@ -12,6 +12,8 @@ Every selected layout in `DASHBOARD.md` must include an ASCII structure diagram.
 - Business process: use `Process Flow`.
 - Real-time operations: use `Realtime Monitoring`.
 - Leadership or exhibition: use `Presentation`.
+- Data story: use `Editorial Story`.
+- Immersive map, topology, or 3D scene: use `Immersive Stage`.
 - Time-series or simple hierarchy: use `Vertical Split`.
 
 ## 1. Overview Sandwich
@@ -200,14 +202,59 @@ Best for: leadership reporting, exhibition, brand display, achievements.
 Strength: memorable and easy to explain.
 Risk: not suitable for dense monitoring or operational response.
 
+## 10. Editorial Story
+
+Staged explanation with a clear sequence.
+
+Best for: exhibition narratives, data stories, annual achievements, guided briefings.
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ Title / Scene Progress / Source                              │
+├──────────────────────────────────────────────┬───────────────┤
+│ Story Stage: Claim + Main Evidence           │ Scene Notes   │
+│ Chart / Map / Visual State                   │ Key Callouts  │
+├──────────────────────────────────────────────┴───────────────┤
+│ Stepper / Timeline / Scene Controls / Caveats                 │
+└──────────────────────────────────────────────────────────────┘
+```
+
+Strength: strong reading path.
+Risk: weak for open-ended monitoring or dense operational response.
+
+## 11. Immersive Stage
+
+The scene or substrate is the main evidence surface.
+
+Best for: spatial operations, flow, topology, geospatial status, 3D facility, exhibition immersion.
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ Title / Global Status / Scene Mode / Time                     │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│        Immersive Scene: Map / 3D / Topology / Flow           │
+│        Floating KPIs / Labels / Alerts / Legend              │
+│                                                              │
+├──────────────────────────────┬───────────────────────────────┤
+│ Scene Controls / Fallback    │ Details / Events / Source     │
+└──────────────────────────────┴───────────────────────────────┘
+```
+
+Strength: high orientation and visual impact when the substrate carries meaning.
+Risk: can become decorative if effects are not tied to data or state.
+
 ## Layout Rules
 
 - Use stable grid tracks and explicit dimensions for major regions.
 - Make the selected layout type visible in `DASHBOARD.md`.
 - Put the ASCII diagram before panel detail.
+- Define a reading path: first scan, second scan, and on-demand detail.
+- Keep legends, filters, scene controls, source status, and active caveats near the evidence they affect.
 - Avoid nested cards.
 - Align panel edges on a shared grid.
 - Reserve enough room for legends, axis labels, and long values.
 - Keep the main visual larger than supporting panels unless using Card Matrix.
 - For `1920x1080`, use consistent margins and gaps, usually 16-24px.
 - Narrow fallback can stack panels, but large-screen layout is the primary design.
+- Mobile or narrow fallback is secondary unless requested; do not make it drive the large-screen composition.
