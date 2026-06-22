@@ -2,7 +2,7 @@
 name: dashboard-builder
 description: Build, design, implement, and verify visual data dashboards and large-screen data displays. Use this skill whenever the user asks for a data cockpit, operations screen, command center, monitoring screen, exhibition or presentation data screen, 数据大屏, 可视化大屏, 监控大屏, 指挥中心, 驾驶舱, or a frontend dashboard that turns metrics, API data, or mock data into a visual screen. Use it for prototype single-file HTML dashboards, hybrid mock-backed production-shaped dashboards, production dashboards connected to backend APIs, and advanced visual dashboards with maps, scenes, WebGL, 3D, particles, or scrollytelling when those effects carry meaning; do not use it for editing BI-platform dashboards directly.
 metadata:
-  version: "0.0.3"
+  version: "0.0.5"
 ---
 
 # Dashboard Builder
@@ -14,6 +14,9 @@ Guide a dashboard from rough intent to a verified runnable artifact. Follow the 
 ## Core Rules
 
 - Do not implement immediately. Confirm the dashboard decisions first.
+- Default interaction style is interactive intake. Advance one workflow phase per assistant response and ask at most three high-value questions for that phase.
+- Do not complete multiple phases in one response, write `DASHBOARD.md`, or start code unless the user explicitly confirms the current phase or explicitly authorizes defaults such as "use defaults", "fast", "快速生成", or "不用问了".
+- Treat a plain "continue" as permission to advance to the next phase only, not as permission to compress the remaining intake or use defaults for later phases.
 - After requirements are confirmed, write `DASHBOARD.md` before coding and wait for user confirmation.
 - `DASHBOARD.md` frontmatter must contain only `name`, `resolution`, and `description`.
 - `DASHBOARD.md` body must read like a dashboard design document, not a workflow transcript.
@@ -26,6 +29,7 @@ Guide a dashboard from rough intent to a verified runnable artifact. Follow the 
 - Do not assume or require any specific AI service, runtime, or agent host. Keep instructions portable across agents that can read this skill.
 - Default delivery mode is `prototype`.
 - Default dashboard type is `operational` when the request is monitoring or command-center oriented; otherwise infer from the scenario and ask for confirmation.
+- Ask for the physical display size or browser resolution when it matters. If the user is unsure, default to `fit-contain-center`: design at `1920x1080`, scale proportionally to the viewport, center the canvas, and never crop core content.
 - Default prototype stack is a single HTML file using Tailwind CDN and ECharts CDN.
 - Default hybrid and production stack is React + TypeScript + ECharts, unless the existing project already has a suitable stack.
 - Prefer existing project conventions over the defaults when working in a real app.
@@ -53,13 +57,15 @@ After the first four phases are confirmed, write `DASHBOARD.md` using `reference
 For each phase, use this format:
 
 ```text
+Stage:
 Confirmed:
 Assumptions:
-Proposal:
-Question:
+Missing:
+Recommended Defaults:
+Questions:
 ```
 
-If the user's prompt is sparse, propose sensible defaults for all workflow phases and ask the user to confirm or adjust them. If the user asks to move quickly, compress the workflow into one concise confirmation summary, but still cover every required phase before implementing.
+If the user's prompt is sparse, start with Phase 1 only and ask for the missing brief decisions. Do not summarize all workflow phases in the first response. If the user asks to move quickly or explicitly authorizes defaults, compress the remaining intake into one concise confirmation summary, but still cover every required phase before implementing.
 
 ## Reference Routing
 

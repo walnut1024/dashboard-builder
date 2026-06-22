@@ -83,6 +83,46 @@ check("workflow template choices are mode-aware", () => {
   assert(workflow.includes("assets/templates/*"), "Workflow must mention reusable design and QA templates.");
 });
 
+check("interactive intake gates are present", () => {
+  const skill = read("SKILL.md");
+  const workflow = read("references/workflow.md");
+  const evals = read("evals/evals.json");
+
+  assert(skill.includes("Default interaction style is interactive intake"), "SKILL.md must set interactive intake as the default style.");
+  assert(skill.includes("Do not complete multiple phases in one response"), "SKILL.md must forbid completing multiple phases by default.");
+  assert(skill.includes('Treat a plain "continue" as permission to advance to the next phase only'), "SKILL.md must not treat continue as fast/default authorization.");
+  assert(workflow.includes("## Interactive Intake Contract"), "workflow.md must include an Interactive Intake Contract.");
+  assert(workflow.includes("Advance one phase per assistant response."), "workflow.md must require one phase per response.");
+  assert(workflow.includes("Ask at most three high-value questions"), "workflow.md must limit question count per response.");
+  assert(workflow.includes("Phase transition rules:"), "workflow.md must define phase transition rules.");
+  assert(!workflow.includes('"use defaults", "continue", "fast"'), "workflow.md must not include continue in the fast/default authorization list.");
+  assert(workflow.includes('Treat a plain "continue" as permission to advance to the next phase only'), "workflow.md must define continue as next-phase-only.");
+  assert(workflow.includes("Stage:") && workflow.includes("Missing:") && workflow.includes("Recommended Defaults:"), "workflow format must include intake state fields.");
+  assert(evals.includes("First response only handles Phase 1: Brief"), "evals must check sparse prompts do not complete every phase.");
+  assert(evals.includes("Asks no more than three high-value Phase 1 questions"), "evals must check sparse prompt question count.");
+});
+
+check("viewport adaptation defaults are present", () => {
+  const skill = read("SKILL.md");
+  const workflow = read("references/workflow.md");
+  const spec = read("references/dashboard-spec.md");
+  const implementation = read("references/implementation.md");
+  const verification = read("references/verification.md");
+  const template = read("assets/template.html");
+  const evals = read("evals/evals.json");
+
+  assert(skill.includes("default to `fit-contain-center`"), "SKILL.md must default unknown displays to fit-contain-center.");
+  assert(workflow.includes("Viewport adaptation modes:"), "workflow.md must define viewport adaptation modes.");
+  assert(workflow.includes("Display size or browser viewport"), "workflow.md must ask for display size or browser viewport.");
+  assert(spec.includes("## Viewport Adaptation"), "DASHBOARD.md spec must include viewport adaptation.");
+  assert(implementation.includes("Scale with `min(viewportWidth / designWidth, viewportHeight / designHeight)`"), "implementation.md must define proportional fit-contain scaling.");
+  assert(verification.includes("1440x900") && verification.includes("3840x2160"), "verification.md must require multi-viewport checks.");
+  assert(template.includes('data-adaptation-mode="fit-contain-center"'), "template must declare fit-contain-center mode.");
+  assert(template.includes("function fitDashboard()"), "template must include a fitDashboard scaler.");
+  assert(template.includes("--dashboard-scale"), "template must apply dashboard scale through CSS.");
+  assert(evals.includes("viewport adaptation"), "evals must cover viewport adaptation behavior.");
+});
+
 check("advanced visual contract is optional", () => {
   const spec = read("references/dashboard-spec.md");
   assert(spec.includes("## Optional: Advanced Visual Contract"), "DASHBOARD.md structure must mark Advanced Visual Contract optional.");

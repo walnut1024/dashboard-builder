@@ -2,6 +2,27 @@
 
 Use this sequence for every dashboard build. This is the working process, not the final design document structure.
 
+## Interactive Intake Contract
+
+Default to interactive QA, not one-shot specification.
+
+- Advance one phase per assistant response.
+- Ask at most three high-value questions in each response.
+- Use defaults to reduce burden, but present them as recommended defaults for the current phase only.
+- Stop after the current phase questions. Wait for the user to answer, confirm, or authorize defaults.
+- Do not gather every phase, write `DASHBOARD.md`, or start implementation in the same response as the initial brief unless the user explicitly asks to use defaults or move fast.
+- If the user says "use defaults", "fast", "快速生成", "不用问了", or equivalent, compress the remaining intake into a concise confirmation summary, then still require confirmation before writing `DASHBOARD.md`.
+- Treat a plain "continue" as permission to advance to the next phase only. It does not authorize compressing remaining phases or applying defaults beyond the current transition.
+
+Phase transition rules:
+
+- Phase 1 can proceed to Phase 2 after audience, viewing environment, goal, dashboard type, resolution, delivery mode, and key technical constraints are confirmed or defaulted with user approval.
+- Phase 2 can proceed after core narrative, reading path, metric groups, data entities, major visual intent, refresh behavior, and priority are confirmed or defaulted with user approval.
+- Phase 3 is skipped for `prototype`; for `hybrid` or `production`, it must produce or adopt a first-pass `DASHBOARD_API.yaml` and get user confirmation.
+- Phase 4 can proceed after layout, visual system, interaction requirements, effects, and implementation/template starting point are confirmed.
+- Phase 5 writes `DASHBOARD.md` only after Phases 1-4 are complete, and required API contracts are confirmed.
+- Phase 6 starts only after the user confirms `DASHBOARD.md` and any required `DASHBOARD_API.yaml`.
+
 ## Phase 1: Brief
 
 Confirm:
@@ -11,6 +32,7 @@ Confirm:
 - Goal: monitor, report, warn, dispatch, analyze, demonstrate, or sell.
 - Dashboard type. Default to `operational` for monitoring and command-center requests; otherwise infer and ask for confirmation.
 - Target resolution. Default to `1920x1080`.
+- Display size or browser viewport, if known. If unknown, default viewport adaptation to `fit-contain-center`.
 - Delivery mode. Default to `prototype`.
 - Technical constraints already known: CDN/internet, existing project stack, browser target, deployment target, auth, offline requirements, full-screen, autoplay, motion, WebGL/3D, or device capability limits.
 
@@ -27,6 +49,12 @@ Delivery modes:
 - `prototype`: single HTML dashboard with mock data. Default to Tailwind CDN and ECharts CDN.
 - `hybrid`: production-shaped app using mock data behind an adapter shaped like the future API.
 - `production`: real backend APIs with loading, empty, error, stale, and refresh states.
+
+Viewport adaptation modes:
+
+- `fit-contain-center`: default when display size is unknown. Use a fixed design canvas, usually `1920x1080`, then proportionally scale and center it so the full dashboard is visible on 1440x900, 1920x1080, 2560x1440, and 3840x2160.
+- `fluid-responsive`: use CSS grid/flex to reflow panels for ordinary web dashboards where the browser viewport varies and pixel-perfect large-screen composition is less important.
+- `fit-cover-crop`: use only for exhibition backgrounds or immersive scenes where edge cropping is accepted. Keep KPIs, labels, controls, and primary evidence inside a safe area.
 
 ## Phase 2: Information Model
 
@@ -69,6 +97,7 @@ Use `assets/templates/dashboard-api-contract-checklist.md` to keep API confirmat
 Confirm:
 
 - Layout pattern and screen density.
+- Viewport adaptation mode and safe area.
 - Dashboard-type fit: operational, analytical, presentation, editorial, or immersive rules that shape the design.
 - Reading path and visible-by-default evidence.
 - Main visual region.
@@ -122,6 +151,7 @@ Rules:
 - Include YAML frontmatter with only `name`, `resolution`, and `description`.
 - Include an ASCII structure diagram in the `Layout` section.
 - Include dashboard type and reading path in the body.
+- Include viewport adaptation mode, design canvas, safe area, and required test viewports in the body.
 - Include a `Chart Map` for major charts only.
 - Include `Optional: Advanced Visual Contract` when using WebGL, 3D, particles, scrollytelling, stepper scenes, generated/raster substrates, or advanced motion.
 - For `hybrid` and `production`, reconcile every API-backed section and panel against `DASHBOARD_API.yaml`.
@@ -153,10 +183,12 @@ Confirm acceptance criteria before or during handoff:
 For each phase, respond with:
 
 ```text
+Stage:
 Confirmed:
 Assumptions:
-Proposal:
-Question:
+Missing:
+Recommended Defaults:
+Questions:
 ```
 
-Do not proceed to implementation until the user confirms or corrects the proposal.
+Do not proceed to the next phase until the user confirms, corrects, or explicitly authorizes defaults for the current phase. Do not proceed to implementation until the user confirms `DASHBOARD.md` and any required `DASHBOARD_API.yaml`.

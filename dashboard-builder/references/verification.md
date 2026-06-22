@@ -17,6 +17,7 @@ Automated checks protect dashboard quality; they do not define the product. A pa
 At minimum check:
 
 - Target resolution, default `1920x1080`.
+- Viewport adaptation mode behaves as documented.
 - No unintended page scroll.
 - No horizontal overflow.
 - No obvious element overlap.
@@ -27,6 +28,7 @@ At minimum check:
 - KPI values are visible.
 - Production loading, empty, error, stale, partial, reconnect, offline, and refresh states are visible when they can be simulated in the runnable environment.
 - Advanced scenes, canvases, WebGL, 3D, or particles render nonblank content and have a visible fallback when required.
+- For unknown display sizes, the dashboard remains complete and centered at `1440x900`, `1920x1080`, `2560x1440`, and `3840x2160`.
 
 ## Design Document Checks
 
@@ -67,6 +69,15 @@ or:
 node scripts/inspect-dashboard.mjs --url http://localhost:5173 --viewport 1920x1080 --out report.json --screenshot screenshot.png
 ```
 
+For large-screen prototypes or unknown display sizes, inspect multiple viewports:
+
+```bash
+node scripts/inspect-dashboard.mjs --file path/to/dashboard.html --viewport 1440x900 --out report-1440x900.json --screenshot screenshot-1440x900.png
+node scripts/inspect-dashboard.mjs --file path/to/dashboard.html --viewport 1920x1080 --out report-1920x1080.json --screenshot screenshot-1920x1080.png
+node scripts/inspect-dashboard.mjs --file path/to/dashboard.html --viewport 2560x1440 --out report-2560x1440.json --screenshot screenshot-2560x1440.png
+node scripts/inspect-dashboard.mjs --file path/to/dashboard.html --viewport 3840x2160 --out report-3840x2160.json --screenshot screenshot-3840x2160.png
+```
+
 The script needs Playwright available in the project or current runtime.
 
 For `hybrid` or `production`, also run the lightweight API contract check from the skill folder or by absolute path:
@@ -83,6 +94,7 @@ Treat these as hard failures:
 - Main content is blank.
 - Severe console errors.
 - Horizontal overflow at target viewport.
+- `fit-contain-center` dashboards are pinned to the upper-left corner, unscaled on larger displays, or cropped on smaller displays.
 - Large panel overlap.
 - Chart containers are zero-size.
 - Advanced scene container is blank or fallback remains incorrectly layered over the primary scene.
@@ -121,6 +133,7 @@ Use the smallest useful mix:
 - Data correctness: check metric definitions, units, time windows, denominators, sorting, aggregation, and KPI/chart/table reconciliation.
 - API contract: run `validate-dashboard-api.mjs` for `hybrid` and `production`.
 - Visual stability: run `inspect-dashboard.mjs` for target resolution, overlap, overflow, text clipping, and chart nonblank rendering.
+- Multi-viewport stability: when display size is unknown, run `inspect-dashboard.mjs` at `1440x900`, `1920x1080`, `2560x1440`, and `3840x2160`.
 - Interaction: verify filters, reset, drilldown, linked charts, full-screen, autoplay, scene stepper, URL/share state, and refresh behavior when present.
 - Runtime states: verify loading, empty, error, live, delayed, stale, partial, offline, reconnecting, and last-known-good states that the design claims.
 - Accessibility and export: check non-color encoding, reduced motion, static screenshots, source/caveat visibility, and export state when required.

@@ -5,16 +5,19 @@
       "id": 1,
       "name": "sparse-prototype-confirmation",
       "prompt": "Use $dashboard-builder. 帮我做一个医院监管大屏，要科技感。",
-      "expected_output": "The agent should not implement immediately. It should confirm usage scenario and delivery mode first, default to prototype, and cover information architecture, layout, visual theme, interactions, technical constraints, and acceptance criteria. After confirmation it should write a layout-first DASHBOARD.md at the agreed path before code. The flow should remain neutral to any LLM provider, model, or agent host.",
+      "expected_output": "The agent should not implement immediately and should not summarize all workflow phases in the first response. It should start interactive intake at Phase 1: Brief, propose defaults only for the current phase, and ask at most three high-value questions about audience/viewing environment, goal/dashboard type, resolution/delivery mode, or key technical constraints. It should wait for the user's answer or explicit authorization to use defaults before moving to Phase 2. The flow should remain neutral to any LLM provider, model, or agent host.",
       "files": [],
       "assertions": [
         "Does not create dashboard code before confirmation.",
+        "First response only handles Phase 1: Brief instead of completing every workflow phase.",
         "Mentions prototype as the default delivery mode.",
+        "Asks for display size or browser resolution, or defaults viewport adaptation to fit-contain-center when unknown.",
         "Asks for or proposes the dashboard type, such as operational, analytical, presentation, editorial, or immersive.",
-        "Uses the Confirmed / Assumptions / Proposal / Question confirmation format.",
-        "Asks for or proposes the primary audience question and metric roles.",
+        "Uses the Stage / Confirmed / Assumptions / Missing / Recommended Defaults / Questions intake format.",
+        "Asks no more than three high-value Phase 1 questions.",
+        "Waits for the user's answer or explicit default authorization before Phase 2.",
         "Covers CDN or environment constraints before implementation.",
-        "States that DASHBOARD.md must be written and confirmed before implementation.",
+        "Does not write DASHBOARD.md until Phases 1-4 are confirmed or explicitly defaulted.",
         "Does not require a specific LLM provider, model, or agent host."
       ]
     },
@@ -22,19 +25,20 @@
       "id": 2,
       "name": "detailed-prototype-html",
       "prompt": "Use $dashboard-builder. Create a 1920x1080 prototype data screen for a city emergency command center. Show total incidents, active dispatches, response SLA, high-risk areas, incident trend, severity distribution, top districts, and latest alerts. Use a dark command-center style. Public internet and CDN are allowed. Save a single HTML file.",
-      "expected_output": "The agent should confirm the workflow, write DASHBOARD.md with minimal YAML frontmatter and an ASCII layout diagram at the agreed path, wait for confirmation, then generate a standalone HTML dashboard using Tailwind CDN and ECharts CDN, preferably adapted from assets/template.html. The output should pass inspect-dashboard.mjs at 1920x1080.",
+      "expected_output": "The agent should confirm the workflow, including viewport adaptation. If display size is unknown, it should default to fit-contain-center. It should write DASHBOARD.md with minimal YAML frontmatter, an ASCII layout diagram, and viewport adaptation details at the agreed path, wait for confirmation, then generate a standalone HTML dashboard using Tailwind CDN and ECharts CDN, preferably adapted from assets/template.html. The output should pass inspect-dashboard.mjs at 1440x900, 1920x1080, 2560x1440, and 3840x2160 when no narrower target set is provided.",
       "files": [],
       "assertions": [
         "Generates DASHBOARD.md before dashboard code.",
         "DASHBOARD.md frontmatter contains only name, resolution, and description.",
         "DASHBOARD.md Layout section contains an ASCII structure diagram.",
+        "DASHBOARD.md includes viewport adaptation mode, design canvas, safe area, and test viewports.",
         "DASHBOARD.md includes a Reading Path or equivalent first-scan sequence.",
         "DASHBOARD.md includes a Chart Map for major visuals.",
         "Generates a single HTML dashboard after DASHBOARD.md confirmation.",
         "Uses Tailwind CDN and ECharts CDN.",
         "Includes realistic mock data for the requested metrics.",
         "Keeps the default view focused on the emergency command center's primary monitoring question.",
-        "Runs or instructs running the bundled inspect-dashboard.mjs script at 1920x1080."
+        "Runs or instructs running the bundled inspect-dashboard.mjs script at 1440x900, 1920x1080, 2560x1440, and 3840x2160 when display size is unknown."
       ]
     },
     {

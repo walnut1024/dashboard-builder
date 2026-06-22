@@ -27,12 +27,22 @@ For presentation, editorial, or immersive prototypes, still prefer a single HTML
 Before coding substantial `hybrid`, `production`, `editorial`, or `immersive` dashboards, document:
 
 - Expected chart or scene instance count.
-- Target container sizes and responsive fallback.
+- Target container sizes, design canvas, viewport adaptation mode, and responsive fallback.
 - Data volume, mark count, scene object count, or update cadence.
 - Interaction states: filters, hover/tap, selection, scene step, autoplay, zoom, drilldown, refresh.
 - Renderer choice and why it fits the dashboard.
 - Performance degradation plan.
 - Static or reduced-motion fallback for advanced visuals.
+
+## Viewport Adaptation
+
+- Ask for the display size or browser resolution when it matters. If the user is unsure, use `fit-contain-center` by default for large-screen prototypes and wall dashboards.
+- For `fit-contain-center`, implement a fixed design canvas, usually `1920x1080`, inside a full-viewport wrapper. Scale with `min(viewportWidth / designWidth, viewportHeight / designHeight)`, center the canvas, and keep `body` overflow hidden.
+- Do not pin a `1920x1080` canvas to the upper-left corner and do not leave it unscaled on 2K/4K displays.
+- Do not let fixed-width panels crop offscreen on smaller viewports such as `1440x900`; the whole canvas must remain visible unless the user explicitly chooses `fit-cover-crop`.
+- For ECharts, keep chart instances in a list and call `chart.resize()` after the adaptation scale updates.
+- For `fluid-responsive`, use CSS grid/flex/container constraints and verify that the reading path and panel hierarchy survive reflow.
+- For `fit-cover-crop`, define a safe area and keep critical evidence inside it.
 
 ## Fidelity And Asset Handling
 
